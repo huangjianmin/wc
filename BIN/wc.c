@@ -2,42 +2,42 @@
 #include <unistd.h>
 #include <string.h>
 
-int charNum = 0;  //×Ö·ûÊý 
-int wordNum = 0;  //µ¥´ÊÊý 
-int lineNum = 0;  //ÐÐÊý 
-int o=0;          //ÊÇ·ñÊä³ö 
+int charNum = 0;  //å­—ç¬¦æ•° 
+int wordNum = 0;  //å•è¯æ•° 
+int lineNum = 0;  //è¡Œæ•° 
+int o=0;          //æ˜¯å¦è¾“å‡º 
 int l=0;
 int w=0;
-int c=0;          //Êä³öÐÐ¡¢µ¥´Ê»òÕß×Ö·û 
-int countChar(char *file) {	  //Í³¼Æ×Ö·ûÊý 
-	FILE *fp = fopen(file,"r");   //´ò¿ªÎÄ¼þ 
+int c=0;          //è¾“å‡ºè¡Œã€å•è¯æˆ–è€…å­—ç¬¦ 
+int countChar(char *file) {	  //ç»Ÿè®¡å­—ç¬¦æ•° 
+	FILE *fp = fopen(file,"r");   //æ‰“å¼€æ–‡ä»¶ 
 	char a;
-	while (!feof(fp))  //±éÀúÕû¸öÎÄ¼þ£¬Ã¿ÓÐÒ»¸ö×Ö·û£¬×Ö·ûÊý+1 
+	while (!feof(fp))  //éåŽ†æ•´ä¸ªæ–‡ä»¶ï¼Œæ¯æœ‰ä¸€ä¸ªå­—ç¬¦ï¼Œå­—ç¬¦æ•°+1 
 	{
 		a = fgetc(fp);
 		charNum++;
 	}
-	fclose(fp);  //¹Ø±ÕÎÄ¼þ 
+	fclose(fp);  //å…³é—­æ–‡ä»¶ 
 }
-int countWord(char *file) {	  //Í³¼Æµ¥´ÊÊý 
+int countWord(char *file) {	  //ç»Ÿè®¡å•è¯æ•° 
 	FILE *fp = fopen(file,"r");
 	char a,b;
-	while (!feof(fp))  //±éÀúÎÄ¼þ 
+	while (!feof(fp))  //éåŽ†æ–‡ä»¶ 
 	{
-		a = fgetc(fp);   //a´æ´¢ËùµÃÎÄ¼þ×Ö·û 
-		if ((a==' '||a==','||a==';'||a==':'||a=='\n'||a=='\t'||a=='('||a==')')&&((b>'A'&&b<'Z')||(b>'a'&&b<'z')))  //·Ö¸ôµ¥´Ê 
+		a = fgetc(fp);   //aå­˜å‚¨æ‰€å¾—æ–‡ä»¶å­—ç¬¦ 
+		if ((a==' '||a==','||a==';'||a==':'||a=='\n'||a=='\t'||a=='('||a==')')&&((b>'A'&&b<'Z')||(b>'a'&&b<'z')))  //åˆ†éš”å•è¯ 
 		{
 			wordNum++;
 		}
-		b=a;    //ÓÃb´æ´¢ÉÏÒ»¸ö×Ö·û 
+		b=a;    //ç”¨bå­˜å‚¨ä¸Šä¸€ä¸ªå­—ç¬¦ 
 
 	}
 	fclose(fp);
 }
-int countLine(char *file) {	  //Í³¼ÆÐÐÊý 
+int countLine(char *file) {	  //ç»Ÿè®¡è¡Œæ•° 
 	FILE *fp = fopen(file,"r");
 	char a;
-	while (!feof(fp))     //Ã¿Óöµ½Ò»¸ö'\n'£¬ÐÐÊý¾Í+1 
+	while (!feof(fp))     //æ¯é‡åˆ°ä¸€ä¸ª'\n'ï¼Œè¡Œæ•°å°±+1 
 	{
 		a = fgetc(fp);
 		if(a=='\n')
@@ -45,14 +45,14 @@ int countLine(char *file) {	  //Í³¼ÆÐÐÊý
 	}
 	fclose(fp);  
 }
-int writeOutput(char *filename)  //Êä³öÐÅÏ¢µ½Ö¸¶¨ÎÄµµ 
+int writeOutput(char *filename)  //è¾“å‡ºä¿¡æ¯åˆ°æŒ‡å®šæ–‡æ¡£ 
 {
     FILE *fpWrite = fopen(filename,"w");
-    if (fpWrite == NULL)    //´ò¿ªÎÄ¼þÊ§°Ü£¬·µ»Ø-1 
+    if (fpWrite == NULL)    //æ‰“å¼€æ–‡ä»¶å¤±è´¥ï¼Œè¿”å›ž-1 
     {		  
 		return -1;
 	}
-	if (l)     //¸ù¾Ýl¡¢w¡¢cµÄÖµÀ´Êä³öÖ¸¶¨ÎÄ¼þµÄÐÐ¡¢µ¥´Ê¡¢×Ö·ûÊýÄ¿ 
+	if (l)     //æ ¹æ®lã€wã€cçš„å€¼æ¥è¾“å‡ºæŒ‡å®šæ–‡ä»¶çš„è¡Œã€å•è¯ã€å­—ç¬¦æ•°ç›® 
     {
         fprintf(fpWrite, "Lines: %d\n", lineNum);
     }
@@ -74,34 +74,34 @@ int main(int argc,char *argv[])
 {
  
     int opt=0;
-    char inFile[20];   //ÊäÈëµÄÎÄ¼þ 
-    char outFile[20];   //Êä³öµÄÎÄ¼þ 
+    char inFile[20];   //è¾“å…¥çš„æ–‡ä»¶ 
+    char outFile[20];   //è¾“å‡ºçš„æ–‡ä»¶ 
 
 	//printf("%d\n",argc);
-	while((opt=getopt(argc,argv,"l:w:c:o:")) != -1)  //»ñÈ¡¿ØÖÆÌ¨ÃüÁî 
+	while((opt=getopt(argc,argv,"l:w:c:o:")) != -1)  //èŽ·å–æŽ§åˆ¶å°å‘½ä»¤ 
     {
         switch(opt)
         {
 
-            case 'l':    //»ñÈ¡ÃüÁîÎªl£¬l=1£¬ÇÒÊä³öÐÐÊý 
+            case 'l':    //èŽ·å–å‘½ä»¤ä¸ºlï¼Œl=1ï¼Œä¸”è¾“å‡ºè¡Œæ•° 
             	l=1;
 				strcpy(inFile,optarg); 
            		countLine(inFile);
 				printf("Lines: %d\n", lineNum);  
            		break;  
-    		case 'w':   //»ñÈ¡ÃüÁîÎªw£¬w=1£¬ÇÒÊä³öµ¥´ÊÊý 
+    		case 'w':   //èŽ·å–å‘½ä»¤ä¸ºwï¼Œw=1ï¼Œä¸”è¾“å‡ºå•è¯æ•° 
         		w=1;
            	 	strcpy(inFile,optarg);
 				countWord(inFile);
 				printf("Words: %d\n", wordNum); 
      		    break;  
-           	case 'c':   //»ñÈ¡ÃüÁîÎªc£¬c=1£¬ÇÒÊä³ö×Ö·ûÊý 
+           	case 'c':   //èŽ·å–å‘½ä»¤ä¸ºcï¼Œc=1ï¼Œä¸”è¾“å‡ºå­—ç¬¦æ•° 
             	c=1;
 				strcpy(inFile,optarg);
 				countChar(inFile);
              	printf("Chars: %d\n", charNum-1);
             	break;
-            case 'o':  //»ñÈ¡ÃüÁîÎªo£¬oÎª1£¬Êä³öÎÄµµ 
+            case 'o':  //èŽ·å–å‘½ä»¤ä¸ºoï¼Œoä¸º1ï¼Œè¾“å‡ºæ–‡æ¡£ 
             	o = 1;
              	strcpy(outFile,optarg);  
         }
